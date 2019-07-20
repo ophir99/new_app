@@ -1,0 +1,31 @@
+<div class="container">
+  <section class="flx first">
+    <mat-form-field>
+      <input type="text" matInput />
+    </mat-form-field>
+  </section>
+</div>
+
+<!-- <ul>
+  <li *ngFor="let section of sections">
+    {{ section | json }}
+  </li>
+</ul> -->
+
+<mat-chip-list>
+  <!-- <mat-chip
+    routerLink="/articles/{{ section.id }}/ {{ section.webTitle }}"
+    *ngFor="let section of sections"
+  >
+    {{ section.id }}
+  </mat-chip> -->
+  <mat-chip
+    [routerLink]="['/articles', section.id, section.webTitle]"
+    [queryParams]="{
+      api: section.apiUrl
+    }"
+    *ngFor="let section of sections"
+  >
+    {{ section.id }}
+  </mat-chip>
+</mat-chip-list>

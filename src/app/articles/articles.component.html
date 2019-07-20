@@ -1,0 +1,31 @@
+<h1>
+  {{ heading }}
+</h1>
+
+<h1>
+  {{ url }}
+</h1>
+
+<mat-card *ngFor="let article of articles">
+  <mat-card-title>
+    {{ article.webTitle }}
+  </mat-card-title>
+  <mat-card-content>
+    <a target="new" href="{{ article.webUrl }}">Go to web</a>
+  </mat-card-content>
+  <mat-card-content>
+    {{ article | json }}
+  </mat-card-content>
+  <mat-card-actions>
+    <button
+      [routerLink]="['/article']"
+      [queryParams]="{
+        api: article.apiUrl
+      }"
+      color="primary"
+      mat-raised-button
+    >
+      Go
+    </button>
+  </mat-card-actions>
+</mat-card>
