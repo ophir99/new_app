@@ -4,16 +4,22 @@
       <h1>My Little App</h1>
       <ul class="custom-menu">
         <li>
-          <button mat-button>Home</button>
+          <button mat-button routerLink="/">Home</button>
         </li>
         <li>
           <button mat-button [matMenuTriggerFor]="projectsMenu">
             Projects
           </button>
         </li>
+        <li></li>
         <li>
-          <button mat-button>
-            Sections
+          <button mat-button (click)="openDialog()">
+            Login
+          </button>
+        </li>
+        <li>
+          <button mat-button (click)="logout()">
+            logout
           </button>
         </li>
       </ul>

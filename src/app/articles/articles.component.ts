@@ -12,16 +12,18 @@ export class ArticlesComponent implements OnInit {
   url: string;
   articles = [];
   constructor(private aRoute: ActivatedRoute, private newsS: NewsService) {
-    this.aRoute.params.subscribe(
-      data => (console.log(data), (this.heading = data.article_name))
-    );
+    console.log("Articles hi");
+    // this.aRoute.params.subscribe(
+    //   data => (console.log(data), (this.heading = data.article_name))
+    // );
 
     // this.aRoute.queryParams.subscribe(qParam => {
     //   this.newsS
     //     .getArticles(qParam.api)
     //     .subscribe(res => console.log("ARTICLES", res));
     // });
-    this.getArticles();
+    // this.getArticles();
+    this.resolve();
   }
 
   ngOnInit() {}
@@ -36,5 +38,11 @@ export class ArticlesComponent implements OnInit {
         console.log(data);
         this.articles = data;
       });
+  }
+
+  resolve() {
+    this.aRoute.data
+      .pipe(map((data: any) => data.articles.response.results))
+      .subscribe(data => (this.articles = data));
   }
 }

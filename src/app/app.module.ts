@@ -10,20 +10,26 @@ import {
   MatMenuModule,
   MatInputModule,
   MatChipsModule,
-  MatCardModule
+  MatCardModule,
+  MatDialogModule
 } from "@angular/material";
 import { HomeComponent } from "./home/home.component";
 import { RouterModule } from "@angular/router";
 import { HttpClientModule } from "@angular/common/http";
 import { ArticlesComponent } from "./articles/articles.component";
 import { ArticleComponent } from "./article/article.component";
+import { ArticleResolver } from "./articles/articles.resolver";
+import { ArticlesActivate } from "./articles/articles.activate";
+import { LoginComponent } from "./login/login.component";
+import { ArticlesDeactivate } from "./articles/articles.deactivate";
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     ArticlesComponent,
-    ArticleComponent
+    ArticleComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -35,6 +41,7 @@ import { ArticleComponent } from "./article/article.component";
     HttpClientModule,
     MatChipsModule,
     MatCardModule,
+    MatDialogModule,
     RouterModule.forRoot([
       {
         path: "",
@@ -42,6 +49,11 @@ import { ArticleComponent } from "./article/article.component";
       },
       {
         path: "articles/:article_name/:article_title",
+        resolve: {
+          articles: ArticleResolver
+        },
+        canActivate: [ArticlesActivate],
+        canDeactivate: [ArticlesDeactivate],
         component: ArticlesComponent
       },
       {
@@ -51,6 +63,7 @@ import { ArticleComponent } from "./article/article.component";
     ])
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [LoginComponent]
 })
 export class AppModule {}
