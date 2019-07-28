@@ -15,13 +15,14 @@ import {
 } from "@angular/material";
 import { HomeComponent } from "./home/home.component";
 import { RouterModule } from "@angular/router";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { ArticlesComponent } from "./articles/articles.component";
 import { ArticleComponent } from "./article/article.component";
 import { ArticleResolver } from "./articles/articles.resolver";
 import { ArticlesActivate } from "./articles/articles.activate";
 import { LoginComponent } from "./login/login.component";
 import { ArticlesDeactivate } from "./articles/articles.deactivate";
+import { AppInterceptor } from "./app.interceptor";
 
 @NgModule({
   declarations: [
@@ -62,7 +63,13 @@ import { ArticlesDeactivate } from "./articles/articles.deactivate";
       }
     ])
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AppInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent],
   entryComponents: [LoginComponent]
 })
